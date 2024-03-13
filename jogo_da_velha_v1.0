@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// AUTOR: ELIAS S. Data: 13/03/2024
+// VERSÃO: 1.0;
+
+int velha[9];
+
+void construir_velha() {
+    for (int i = 1; i <= 9; i++) {
+        velha[i] = "|%d|";
+    }
+
+}
+
+void mostrar_velha() {
+    for (int i = 1; i <= 9; i++) {
+        printf(velha[i]);
+        if (i % 3 == 0) {
+            printf("\n");
+        }
+    }
+}
+
+void verificar_ganhou() {
+
+    // verificar se jogador 1 ganhou
+    int ganhou_x1 = velha[1] == "|X|" && velha[2] == "|X|" && velha[3] == "|X|";
+    int ganhou_x2 = velha[4] == "|X|" && velha[5] == "|X|" && velha[6] == "|X|";
+    int ganhou_x3 = velha[7] == "|X|" && velha[8] == "|X|" && velha[9] == "|X|";
+    int ganhou_x4 = velha[1] == "|X|" && velha[4] == "|X|" && velha[7] == "|X|";
+    int ganhou_x5 = velha[2] == "|X|" && velha[5] == "|X|" && velha[8] == "|X|";
+    int ganhou_x6 = velha[3] == "|X|" && velha[6] == "|X|" && velha[9] == "|X|";
+    int ganhou_x7 = velha[1] == "|X|" && velha[5] == "|X|" && velha[9] == "|X|";
+    int ganhou_x8 = velha[7] == "|X|" && velha[5] == "|X|" && velha[3] == "|X|";
+
+    // verificar se jogador 2 ganhou
+
+    int ganhou_01 = velha[1] == "|0|" && velha[2] == "|0|" && velha[3] == "|0|";
+    int ganhou_02 = velha[4] == "|0|" && velha[5] == "|0|" && velha[6] == "|0|";
+    int ganhou_03 = velha[7] == "|0|" && velha[8] == "|0|" && velha[9] == "|0|";
+    int ganhou_04 = velha[1] == "|0|" && velha[4] == "|0|" && velha[7] == "|0|";
+    int ganhou_05 = velha[2] == "|0|" && velha[5] == "|0|" && velha[8] == "|0|";
+    int ganhou_06 = velha[3] == "|0|" && velha[6] == "|0|" && velha[9] == "|0|";
+    int ganhou_07 = velha[1] == "|0|" && velha[5] == "|0|" && velha[9] == "|0|";
+    int ganhou_08 = velha[7] == "|0|" && velha[5] == "|0|" && velha[3] == "|0|";
+
+    if (ganhou_x1 || ganhou_x2 || ganhou_x3 || ganhou_x4 || ganhou_x5 || ganhou_x6 || ganhou_x7 || ganhou_x8) {
+        printf("jogador 1 ganhou!\n");
+        main();
+    } else if (ganhou_01 || ganhou_02 || ganhou_03 || ganhou_04 || ganhou_05 || ganhou_06 || ganhou_07 || ganhou_08) {
+        printf("jogador 2 ganhou!\n");
+        main();
+    }
+}
+
+void marcar_velha(int escolha, int i) {
+    if (i % 2 == 0) {
+        velha[escolha] = "|X|";
+    }
+    if (i % 2 == 1) {
+        velha[escolha] = "|0|";
+    }
+    verificar_ganhou();
+}
+
+void play_game() {
+    int i = 0;
+    int play = 1;
+    int escolha;
+    while (play) {
+        if (i % 2 == 0) {
+        printf("jogador 1 (X): ");
+        scanf("%d", &escolha);
+    } else if (i % 2 == 1) {
+        printf("jogador 2 (0): ");
+        scanf("%d", &escolha);
+    }
+    marcar_velha(escolha, i);
+    system("cls");
+    mostrar_velha();
+    i++;
+    }
+
+}
+
+int main() {
+    int i = 0;
+    int onOrOff = 1;
+    construir_velha();
+    while(onOrOff) {
+        mostrar_velha();
+        play_game();
+        onOrOff = 0;
+    }
+
+    return 0;
+}
